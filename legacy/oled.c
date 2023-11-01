@@ -127,7 +127,7 @@ static inline void SPISend(uint32_t base, const uint8_t *data, int len) {
 /*
  * Initialize the display.
  */
-void oledInit() {
+void oledInit(void) {
   static const uint8_t s[25] = {OLED_DISPLAYOFF,
                                 OLED_SETDISPLAYCLOCKDIV,
                                 0x80,
@@ -177,9 +177,9 @@ void oledInit() {
 /*
  * Clears the display buffer (sets all pixels to black)
  */
-void oledClear() { memzero(_oledbuffer, sizeof(_oledbuffer)); }
+void oledClear(void) { memzero(_oledbuffer, sizeof(_oledbuffer)); }
 
-void oledInvertDebugLink() {
+void oledInvertDebugLink(void) {
 #if DEBUG_LINK
   oledInvertPixel(OLED_WIDTH - 5, 0);
   oledInvertPixel(OLED_WIDTH - 4, 0);
@@ -206,7 +206,7 @@ void oledInvertDebugLink() {
  * not the content of the display.
  */
 #if !EMULATOR
-void oledRefresh() {
+void oledRefresh(void) {
   static const uint8_t s[3] = {OLED_SETLOWCOLUMN | 0x00,
                                OLED_SETHIGHCOLUMN | 0x00,
                                OLED_SETSTARTLINE | 0x00};
@@ -229,7 +229,7 @@ void oledRefresh() {
 }
 #endif
 
-const uint8_t *oledGetBuffer() { return _oledbuffer; }
+const uint8_t *oledGetBuffer(void) { return _oledbuffer; }
 
 void oledSetBuffer(uint8_t *buf) {
   memcpy(_oledbuffer, buf, sizeof(_oledbuffer));
